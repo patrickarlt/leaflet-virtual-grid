@@ -9,7 +9,7 @@ This lets you query APIs for smaller units and space and never make a call data 
 
 Here is what the grid looks like under the hood...
 
-![Example](https://raw.github.com/Esri/esri-leaflet/master/esri-leaflet.png)
+![Example](https://raw.github.com/patrickarlt/leaflet-virtual-grid/master/example.jpg)
 
 Each rectangle would represent a call to an API or query to a data source. You would only make one request per cell so you not make repeat calls to areas like requesting all the data in a map view when a user performs a small pan.
 
