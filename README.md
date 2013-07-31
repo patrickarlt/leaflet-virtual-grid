@@ -5,6 +5,25 @@ You can use `L.VirtualGrid` to generate simple, cacheable, grids of `L.LatLngBou
 
 This lets you query APIs for smaller units and space and never make a call data in the same area twice.
 
+# Usage
+
+```js
+var vg = L.virtualGrid({
+  cellSize: 512, // how large each cell is. 512 is the default
+  debounce: 100, // how long of a delay between 'newcell' events
+  deduplicate: true // don't include cells more then once in `newcell` events
+});
+
+// listen for when new cells come into the view
+vg.on("newcells", function(e){
+  // do something with the cells
+  console.log(e.cells);
+});
+
+// add the grid to the map (triggers the 'newcells' event)
+vg.addTo(map);
+```
+
 # Example
 
 Here is what the grid looks like under the hood...
