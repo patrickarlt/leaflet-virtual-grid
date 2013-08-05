@@ -47,10 +47,10 @@
       map.off("move zoomend resize", this.handler, this);
     },
     cellsWithin: function(mapBounds){
-      console.time("cellsWithin");
       var size = this._map.getSize();
       var offset = this._map.project(this._map.getCenter());
-      var bounds = mapBounds.pad(Math.min(this.options.cellSize/size.x, this.options.cellSize/size.y));
+      var padding = Math.min(this.options.cellSize/size.x, this.options.cellSize/size.y)
+      var bounds = mapBounds.pad(0.1);
       var cellInfo = {
         bounds: bounds,
         cells: []
@@ -98,7 +98,6 @@
       cellInfo.cells.sort(function (a, b) {
         return a.distance - b.distance;
       });
-      console.timeEnd("cellsWithin");
       return cellInfo;
     },
     cellExtent: function(row, col){
