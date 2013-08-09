@@ -50,7 +50,7 @@
       var size = this._map.getSize();
       var offset = this._map.project(this._map.getCenter());
       var padding = Math.min(this.options.cellSize/size.x, this.options.cellSize/size.y)
-      var bounds = mapBounds.pad(0.1);
+      var bounds = mapBounds.pad(padding);
       var cellInfo = {
         bounds: bounds,
         cells: []
