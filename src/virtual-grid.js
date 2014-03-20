@@ -42,13 +42,15 @@
 				var cell = e.cells[i];
 				(function(cell, i) {
 					setTimeout(function() {
-
-						this_.cellsLayer.addLayer(L.rectangle(cell.bounds, {
+						
+						var layer = L.rectangle(cell.bounds, {
 							color : '#3ac1f0',
 							weight : 2,
 							opacity : 0.5,
 							fillOpacity : 0.25
-						}));
+						});
+
+						this_.cellsLayer.addLayer(layer);
 
 						// debug.addLayer(L.circle(cell.center,cell.radius, {
 						//   color: '#3ac1f0',
