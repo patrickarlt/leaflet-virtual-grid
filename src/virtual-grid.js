@@ -36,7 +36,7 @@
  		 * 
  		 * @param {Event} e
  		 */
-		newCellsCallback : function(e) {
+		onNewCells : function(e) {
 			var this_ = e.target;
 			for (var i = 0; i < e.cells.length; i++) {
 				var cell = e.cells[i];
@@ -67,7 +67,7 @@
  		 * 
  		 * @param {Event} e
  		 */
-		clearCellsCallback : function(e) {
+		onClearCells : function(e) {
 			var this_ = e.target;
 			this_.cellsLayer.clearLayers();
 		},
@@ -79,8 +79,8 @@
 			this.center = this._map.getCenter();
 			this.origin = this._map.project(this.center);
 
-			this.on("newcells", this.newCellsCallback);
-			this.on("clearcells", this.clearCellsCallback);
+			this.on("newcells", this.onNewCells);
+			this.on("clearcells", this.onClearCells);
 
 			this.handler = this.debounce(function(e) {
 				if (e.type === "zoomend") {
