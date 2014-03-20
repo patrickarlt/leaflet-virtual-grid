@@ -15,7 +15,7 @@
 		roundAwayFromZero : function(num) {
 			return (num > 0) ? Math.ceil(num) : Math.floor(num);
 		},
-		
+
 		debounce : function(fn, delay, context) {
 			var timer = null;
 			return function() {
@@ -26,13 +26,43 @@
 				}, delay);
 			};
 		},
+
 		initialize : function(options) {
 			L.Util.setOptions(this, options);
 		},
+
 		onAdd : function(map) {
+			this.cellsLayer = L.layerGroup();
 			this._map = map;
+			this.cellsLayer.addTo(map);
 			this.center = this._map.getCenter();
 			this.origin = this._map.project(this.center);
+
+			this.on("newcells", function(e) {
+				var this_ = e.target;
+				for (var i = 0; i < e.cells.length; i++) {
+					var cell = e.cells[i];
+					(function(cell, i) {
+						setTimeout(function() {
+
+							this_.cellsLayer.addLayer(L.rectangle(cell.bounds, {
+								color : '#3ac1f0',
+								weight : 2,
+								opacity : 0.5,
+								fillOpacity : 0.25
+							}));
+
+							// debug.addLayer(L.circle(cell.center,cell.radius, {
+							//   color: '#3ac1f0',
+							//   weight: 2,
+							//   opacity: 0.5,
+							//   fillOpacity: 0.25
+							// }));
+
+						}, i);
+					})(cell, i);
+				}
+			});
 
 			this.handler = this.debounce(function(e) {
 				if (e.type === "zoomend") {
@@ -47,9 +77,11 @@
 
 			this.fireEvent("newcells", this.cellsWithin(this._map.getBounds()));
 		},
+
 		onRemove : function(map) {
 			map.off("move zoomend resize", this.handler, this);
 		},
+
 		cellsWithin : function(mapBounds) {
 			var size = this._map.getSize();
 			var offset = this._map.project(this._map.getCenter());
@@ -104,6 +136,7 @@
 			});
 			return cellInfo;
 		},
+
 		cellExtent : function(row, col) {
 			var swPoint = this.cellPoint(row, col);
 			var nePoint = this.cellPoint(row + 1, col + 1);
@@ -111,13 +144,14 @@
 			var ne = this._map.unproject(nePoint);
 			return L.latLngBounds(sw, ne);
 		},
+
 		cellPoint : function(row, col) {
 			var x = this.origin.x + (row * this.options.cellSize);
 			var y = this.origin.y + (col * this.options.cellSize);
 			return [x, y];
 		},
+
 		addTo : function(map) {
-			L.layerGroup()
 			map.addLayer(this);
 			return this;
 		}
