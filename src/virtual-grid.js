@@ -31,6 +31,47 @@
 			L.Util.setOptions(this, options);
 		},
 
+ 		/**
+ 		 * Can override this method with the functionality needed
+ 		 * 
+ 		 * @param {Event} e
+ 		 */
+		newCellsCallback : function(e) {
+			var this_ = e.target;
+			for (var i = 0; i < e.cells.length; i++) {
+				var cell = e.cells[i];
+				(function(cell, i) {
+					setTimeout(function() {
+
+						this_.cellsLayer.addLayer(L.rectangle(cell.bounds, {
+							color : '#3ac1f0',
+							weight : 2,
+							opacity : 0.5,
+							fillOpacity : 0.25
+						}));
+
+						// debug.addLayer(L.circle(cell.center,cell.radius, {
+						//   color: '#3ac1f0',
+						//   weight: 2,
+						//   opacity: 0.5,
+						//   fillOpacity: 0.25
+						// }));
+
+					}, i);
+				})(cell, i);
+			}
+		},
+
+		/**
+ 		 * Can override this method with the functionality needed
+ 		 * 
+ 		 * @param {Event} e
+ 		 */
+		clearCellsCallback : function(e) {
+			var this_ = e.target;
+			this_.cellsLayer.clearLayers();
+		},
+
 		onAdd : function(map) {
 			this.cellsLayer = L.layerGroup();
 			this._map = map;
@@ -38,31 +79,8 @@
 			this.center = this._map.getCenter();
 			this.origin = this._map.project(this.center);
 
-			this.on("newcells", function(e) {
-				var this_ = e.target;
-				for (var i = 0; i < e.cells.length; i++) {
-					var cell = e.cells[i];
-					(function(cell, i) {
-						setTimeout(function() {
-
-							this_.cellsLayer.addLayer(L.rectangle(cell.bounds, {
-								color : '#3ac1f0',
-								weight : 2,
-								opacity : 0.5,
-								fillOpacity : 0.25
-							}));
-
-							// debug.addLayer(L.circle(cell.center,cell.radius, {
-							//   color: '#3ac1f0',
-							//   weight: 2,
-							//   opacity: 0.5,
-							//   fillOpacity: 0.25
-							// }));
-
-						}, i);
-					})(cell, i);
-				}
-			});
+			this.on("newcells", this.newCellsCallback);
+			this.on("clearcells", this.clearCellsCallback);
 
 			this.handler = this.debounce(function(e) {
 				if (e.type === "zoomend") {
