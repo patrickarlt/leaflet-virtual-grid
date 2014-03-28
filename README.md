@@ -15,7 +15,13 @@ var vg = L.virtualGrid({
 });
 
 // listen for when new cells come into the view
-vg.on("newcells", function(e){
+vg.onNewCells = function(e){
+  // do something with the cells
+  console.log(e.cells);
+});
+
+// listen when clear cells into the view
+vg.onClearCells = function(e){
   // do something with the cells
   console.log(e.cells);
 });

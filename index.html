@@ -16,7 +16,7 @@
   <body>
     <div id='map'></div>
 
-    <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="vendor/esri-leaflet.min.js"></script>
     <script src="src/virtual-grid.js"></script>
@@ -34,43 +34,13 @@
       // add some extra labels as a second BasemapLayer
       var labels = L.esri.basemapLayer("GrayLabels").addTo(map);
 
-      // make a new LayerGroup to store shapes representing our grid
-      var debug = L.layerGroup().addTo(map);
-
       // make a new VirtualGrid
       var virtualGrid = L.virtualGrid({
         cellSize:512
       });
-
-      // when new cells come into view...
-      virtualGrid.on("newcells", function(e) {
-        for (var i = 0; i < e.cells.length; i++) {
-          var cell = e.cells[i];
-          (function(cell, i){
-            setTimeout(function(){
-
-              debug.addLayer(L.rectangle(cell.bounds, {
-                color: '#3ac1f0',
-                weight: 2,
-                opacity: 0.5,
-                fillOpacity: 0.25
-              }));
-
-              // debug.addLayer(L.circle(cell.center,cell.radius, {
-              //   color: '#3ac1f0',
-              //   weight: 2,
-              //   opacity: 0.5,
-              //   fillOpacity: 0.25
-              // }));
-
-            }, i);
-          })(cell, i);
-
-        }
-      });
-
-      // then add the layer. Adding this after declaring the event works better
+      
       virtualGrid.addTo(map);
+      
     </script>
   </body>
 </html>
