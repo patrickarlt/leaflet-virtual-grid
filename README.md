@@ -1,28 +1,66 @@
 
 # Leaflet Virtual Grid
 
-You can use `L.VirtualGrid` to generate simple, cacheable, grids of `L.LatLngBounds` objects you can use to query and API.
+You can use `L.VirtualGrid` to generate simple, cacheable, grids of `L.LatLngBounds` objects you can use to query APIs. This lets you query APIs for smaller units and space and never make a call data in the same area twice.
 
-This lets you query APIs for smaller units and space and never make a call data in the same area twice.
+# Usage with Events
 
-# Usage
+```js
+var vg = L.virtualGrid();
+
+// listen for when new cells come into the view for the first time
+vg.on("cellcreate", function(e){
+  console.log(e.type, e);
+});
+
+// listen for when cells reenter the view
+vg.on("cellenter", function(e){
+  console.log(e.type, e);
+});
+
+// listen for when cells leave the view
+vg.on("cellleave", function(e){
+  console.log(e.type, e);
+});
+
+// add the grid to the map
+vg.addTo(map);
+```
+
+# Usage as a Class
+
+```js
+var MyGridThing = L.VirtualGrid.extend({
+    createCell: function(bounds, coords){
+        console.log('create cell', bounds, coords);
+    },
+    cellEnter: function(bounds, coords){
+        console.log('cell enter', bounds, coords);
+    }
+    cellLeave: function(bounds, coords){
+        console.log('cell leave', bounds, coords);
+    }
+})
+
+var thingWithGrid = new MyGridThing().addTo(map);
+```
+
+# Options
 
 ```js
 var vg = L.virtualGrid({
-  cellSize: 512, // how large each cell is. 512 is the default
-  debounce: 100, // how long of a delay between 'newcell' events
-  deduplicate: true // don't include cells more then once in `newcell` events
+    cellSize: 512,
+    updateInterval: 150
 });
-
-// listen for when new cells come into the view
-vg.on("newcells", function(e){
-  // do something with the cells
-  console.log(e.cells);
-});
-
-// add the grid to the map (triggers the 'newcells' event)
-vg.addTo(map);
 ```
+
+##### `updateInterval`
+
+How often to update the grid. Defaults to `150`
+
+##### `cellSize`
+
+How big each cell is in pixels. Defaults to `512`
 
 # Example
 
@@ -32,11 +70,13 @@ Here is what the grid looks like under the hood...
 
 Each rectangle would represent a call to an API or query to a data source. You would only make one request per cell so you not make repeat calls to areas like requesting all the data in a map view when a user performs a small pan.
 
-Currently the grid is rebuilt from scratch when a user zooms in or out Eventually the goal is to have `L.VirtualGrid` automatically repack grid cells when users zoom in or out so avoid repeat calls even across zoom levels.
+# Credit
+
+Most of this code is based on `L.Grid` from https://github.com/Leaflet/Leaflet/commit/670dbaac045c7670ff26198136e440be9c2bb3e5.
 
 # To Do
-* **Repack grid cells across zoom levels**
 * Cross browser testing
-* Building system
+* Build system
 * Unit tests
 * Documentation
+* Formal release

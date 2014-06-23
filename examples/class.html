@@ -24,38 +24,37 @@
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
 
-      var rects = {};
-
-      function coordsToKey(coords){
-        return coords.x + ':' + coords.y + ':' +coords.z;
-      }
-
-      var grid = L.virtualGrid({
-        cellSize: 64
+      // make a new VirtualGrid
+      var DebugGrid = L.VirtualGrid.extend({
+        options: {
+          cellSize: 64,
+          pathStyle: {
+            color: '#3ac1f0',
+            weight: 2,
+            opacity: 0.5,
+            fillOpacity: 0.25
+          }
+        },
+        initialize: function  (options) {
+          L.Util.setOptions(this, options);
+          this.rects = {};
+        },
+        createCell: function (bounds, coords) {
+          console.log(this);
+          this.rects[this.coordsToKey(coords)] = L.rectangle(bounds, this.options.pathStyle).addTo(map);
+        },
+        cellEnter: function (bounds, coords) {
+          map.addLayer(this.rects[this.coordsToKey(coords)]);
+        },
+        cellLeace: function (bounds, coords) {
+          map.removeLayer(this.rects[this.coordsToKey(coords)]);
+        },
+        coordsToKey: function (coords) {
+          return coords.x + ':' + coords.y + ':' +coords.z;
+        }
       });
 
-      // when new cells come into view...
-      grid.on("cellcreate", function(e) {
-        console.log(e.type, e);
-        rects[coordsToKey(e.coords)] = L.rectangle(e.bounds, {
-          color: '#3ac1f0',
-          weight: 2,
-          opacity: 0.5,
-          fillOpacity: 0.25
-        }).addTo(map);
-      });
-
-      grid.on("cellenter", function(e) {
-        console.log(e.type, e);
-        map.addLayer(rects[coordsToKey(e.coords)]);
-      });
-
-      grid.on("cellleave", function(e) {
-        console.log(e.type, e);
-        map.removeLayer(rects[coordsToKey(e.coords)]);
-      });
-
-      grid.addTo(map);
+      var debugGrid = new DebugGrid().addTo(map);
     </script>
   </body>
 </html>
