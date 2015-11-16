@@ -10,3 +10,6 @@ Icon
 
 #Node
 node_modules
+
+# Built files
+dist

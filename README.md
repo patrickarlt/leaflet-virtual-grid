@@ -1,12 +1,12 @@
 
 # Leaflet Virtual Grid
 
-You can use `L.VirtualGrid` to generate simple, cacheable, grids of `L.LatLngBounds` objects you can use to query APIs. This lets you query APIs for smaller units and space and never make a call data in the same area twice.
+You can use `new VirtualGrid` to generate simple, cacheable, grids of `L.LatLngBounds` objects you can use to query APIs. This lets you query APIs for smaller units and space and never make a call data in the same area twice.
 
 # Usage with Events
 
 ```js
-var vg = L.virtualGrid();
+var vg = new VirtualGrid();
 
 // listen for when new cells come into the view for the first time
 vg.on("cellcreate", function(e){
@@ -30,27 +30,29 @@ vg.addTo(map);
 # Usage as a Class
 
 ```js
-var MyGridThing = L.VirtualGrid.extend({
-    createCell: function(bounds, coords){
-        console.log('create cell', bounds, coords);
-    },
-    cellEnter: function(bounds, coords){
-        console.log('cell enter', bounds, coords);
-    }
-    cellLeave: function(bounds, coords){
-        console.log('cell leave', bounds, coords);
-    }
+var MyGrid = new VirtualGrid.extend({
+  createCell: function(bounds, coords){
+    console.log('create cell', bounds, coords);
+  },
+
+  cellEnter: function(bounds, coords){
+    console.log('cell enter', bounds, coords);
+  },
+
+  cellLeave: function(bounds, coords){
+    console.log('cell leave', bounds, coords);
+  }
 })
 
-var thingWithGrid = new MyGridThing().addTo(map);
+var thingWithGrid = new MyGrid().addTo(map);
 ```
 
 # Options
 
 ```js
-var vg = L.virtualGrid({
-    cellSize: 512,
-    updateInterval: 150
+var vg = new VirtualGrid({
+  cellSize: 512,
+  updateInterval: 150
 });
 ```
 
@@ -73,10 +75,3 @@ Each rectangle would represent a call to an API or query to a data source. You w
 # Credit
 
 Most of this code is based on `L.Grid` from https://github.com/Leaflet/Leaflet/commit/670dbaac045c7670ff26198136e440be9c2bb3e5.
-
-# To Do
-* Cross browser testing
-* Build system
-* Unit tests
-* Documentation
-* Formal release
