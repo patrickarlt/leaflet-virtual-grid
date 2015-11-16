@@ -1,10 +1,10 @@
 {
-  "name": "virtual-grid",
+  "name": "leaflet-virtual-grid",
   "version": "0.1.0",
   "description": "A lightweight DOM-less tile layer for Leaflet that can be used to query APIs with bounding boxes or center/radius as opposed to loading tiles.",
   "main": "dist/virtual-grid.js",
   "scripts": {
-    "lint": "semistandard",
+    "lint": "semistandard --verbose | snazzy",
     "test": "npm run lint && browserify test/virtual-grid.js -t [ babelify --presets es2015 ] | tape-run | faucet",
     "bundle": "rollup src/virtual-grid.js -m dist/virtual-grid.js.map -e leaflet -f umd -o dist/virtual-grid.js -n VirtualGrid",
     "release": "scripts/release.sh"
@@ -37,6 +37,7 @@
     "rollup": "^0.21.0",
     "semistandard": "^7.0.2",
     "sinon": "^1.17.2",
+    "snazzy": "^2.0.1",
     "tape": "^4.2.2",
     "tape-catch": "^1.0.4",
     "tape-run": "^2.1.0"
