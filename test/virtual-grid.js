@@ -46,7 +46,7 @@ test('should create cells based on the view of the map', function (t) {
 });
 
 test('should create cells when the map zooms in', function (t) {
-  t.plan(8);
+  t.plan(5);
 
   var map = createMap().setView([0, 0], 1);
   var grid = createMockGrid();
@@ -54,14 +54,12 @@ test('should create cells when the map zooms in', function (t) {
   grid.addTo(map);
 
   grid.on('cellsupdated', function () {
-    t.ok(grid.cellLeave.getCall(0).args[1].equals(L.point([0, 0, 1])));
-    t.ok(grid.cellLeave.getCall(1).args[1].equals(L.point([1, 0, 1])));
-    t.ok(grid.cellLeave.getCall(2).args[1].equals(L.point([0, 1, 1])));
-    t.ok(grid.cellLeave.getCall(3).args[1].equals(L.point([1, 1, 1])));
-    t.ok(grid.createCell.getCall(4).args[1].equals(L.point([0, 0, 2])));
-    t.ok(grid.createCell.getCall(5).args[1].equals(L.point([1, 0, 2])));
-    t.ok(grid.createCell.getCall(6).args[1].equals(L.point([0, 1, 2])));
-    t.ok(grid.createCell.getCall(7).args[1].equals(L.point([1, 1, 2])));
+    t.ok(grid.cellLeave.getCall(0).args[1].equals(L.point([0,0,1])));
+
+    t.ok(grid.createCell.getCall(1).args[1].equals(L.point([0,0,2])));
+    t.ok(grid.createCell.getCall(2).args[1].equals(L.point([1,0,2])));
+    t.ok(grid.createCell.getCall(3).args[1].equals(L.point([0,1,2])));
+    t.ok(grid.createCell.getCall(4).args[1].equals(L.point([1,1,2])));
 
     map.remove();
   });
@@ -70,7 +68,7 @@ test('should create cells when the map zooms in', function (t) {
 });
 
 test('should create cells when the map is panned', function (t) {
-  t. plan(2);
+  t.plan(2);
 
   var map = createMap().setView([0, 0], 4);
   var grid = createMockGrid();
@@ -83,7 +81,7 @@ test('should create cells when the map is panned', function (t) {
     map.remove();
   });
 
-  map.panBy([256, 256], {
+  map.panBy([512, 512], {
     animate: false,
     duration: 0
   });
