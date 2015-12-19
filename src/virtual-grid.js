@@ -94,12 +94,7 @@ var VirtualGrid = L.Layer.extend({
     }
 
     var bounds = this._map.getPixelBounds();
-    var zoom = this._map.getZoom();
     var cellSize = this._getCellSize();
-
-    if (zoom > this.options.maxZoom || zoom < this.options.minZoom) {
-      return;
-    }
 
     // cell coordinates range for the current view
     var cellBounds = L.bounds(
