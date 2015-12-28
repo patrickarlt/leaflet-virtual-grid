@@ -1,6 +1,14 @@
 
 # Leaflet Virtual Grid
 
+[![npm version][npm-img]][npm-url]
+[![build status][travis-image]][travis-url]
+
+[npm-img]: https://img.shields.io/npm/v/leaflet-virtual-grid.svg?style=flat-square
+[npm-url]: https://www.npmjs.com/package/leaflet-virtual-grid
+[travis-image]: https://img.shields.io/travis/patrickarlt/leaflet-virtual-grid/master.svg?style=flat-square
+[travis-url]: https://travis-ci.org/patrickarlt/leaflet-virtual-grid
+
 You can use `new VirtualGrid` to generate simple, cacheable, grids of `L.LatLngBounds` objects you can use to query APIs. This lets you query APIs for smaller units and space and never make a call data in the same area twice.
 
 # Usage with Events
