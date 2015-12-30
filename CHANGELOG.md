@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Unreleased]
 
+## [1.0.2]
+
+* Fix NPM release
+
 ## [1.0.1]
 
 ### Changed
