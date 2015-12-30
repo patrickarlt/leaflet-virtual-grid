@@ -2,7 +2,21 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 0.1.1
+[Unreleased]
+
+## [1.0.1]
+
+### Changed
+
+* grid no longer attempts to honor min/maxZoom specified by layer manager (more info [here](https://github.com/Esri/esri-leaflet/pull/660#issuecomment-151680624))
+
+## [1.0.0]
+
+### Added
+
+* Support for Leaflet 1.0.0-beta
+
+## [0.1.1]
 
 ### Fixed
 
@@ -11,3 +25,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 0.1.0
 
 First release.
+
+[Unreleased]: https://github.com/patrickarlt/leaflet-virtual-grid/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/patrickarlt/leaflet-virtual-grid/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/patrickarlt/leaflet-virtual-grid/compare/v0.1.1...v1.0.0
+[0.1.1]: https://github.com/patrickarlt/leaflet-virtual-grid/compare/v0.1.0...v0.1.1
