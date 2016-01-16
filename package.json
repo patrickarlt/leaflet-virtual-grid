@@ -1,6 +1,6 @@
 {
   "name": "leaflet-virtual-grid",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A lightweight DOM-less tile layer for Leaflet that can be used to query APIs with bounding boxes or center/radius as opposed to loading tiles.",
   "main": "dist/virtual-grid.js",
   "jsnext:main": "src/virtual-grid.js",

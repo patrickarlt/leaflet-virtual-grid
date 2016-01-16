@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [Unreleased]
 
+## [1.0.3]
+
+* Work around https://github.com/Leaflet/Leaflet/issues/4023 in Leaflet 1.0.0-beta.2.
+
 ## [1.0.2]
 
 * Fix NPM release

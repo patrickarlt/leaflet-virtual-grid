@@ -9,7 +9,7 @@ var VirtualGrid = L.Layer.extend({
 
   initialize: function (options) {
     options = L.setOptions(this, options);
-    this._zooming = false;
+    this._ok = true;
   },
 
   onAdd: function (map) {
@@ -27,7 +27,7 @@ var VirtualGrid = L.Layer.extend({
   getEvents: function () {
     var events = {
       moveend: this._update,
-      zoomstart: this._zoomstart,
+      movestart: this._start,
       zoomend: this._reset
     };
 
@@ -44,11 +44,15 @@ var VirtualGrid = L.Layer.extend({
     return this;
   },
 
-  _zoomstart: function () {
-    this._zooming = true;
+  _start: function () {
+    this._ok = true;
   },
 
   _reset: function () {
+    if (!this._ok) {
+      return;
+    }
+
     this._removeCells();
 
     this._cells = {};
@@ -89,6 +93,10 @@ var VirtualGrid = L.Layer.extend({
   },
 
   _update: function () {
+    if (!this._ok) {
+      return;
+    }
+
     if (!this._map) {
       return;
     }
@@ -105,6 +113,8 @@ var VirtualGrid = L.Layer.extend({
     this._addCells(cellBounds);
 
     this.fire('cellsupdated');
+
+    this._ok = false;
   },
 
   _addCells: function (bounds) {
