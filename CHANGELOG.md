@@ -5,7 +5,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### [Unreleased]
 
+## [1.0.4]
+
+* i wish i could explain it.
+
+## [1.0.3]
+
+* Work around Leaflet/Leaflet#4023 in Leaflet 1.0.0-beta.2.
+
 ## [1.0.2]
+
+* Fix NPM release
 
 ### Fixed
 
@@ -33,8 +43,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 First release.
 
-[Unreleased]: https://github.com/patrickarlt/leaflet-virtual-grid/compare/v1.0.2...HEAD
-[1.0.1]: https://github.com/patrickarlt/leaflet-virtual-grid/compare/v1.0.1...v1.0.2
+[Unreleased]: https://github.com/patrickarlt/leaflet-virtual-grid/compare/v1.0.4...HEAD
+[1.0.4]: https://github.com/patrickarlt/leaflet-virtual-grid/compare/v1.0.3...v1.0.4
+[1.0.3]: https://github.com/patrickarlt/leaflet-virtual-grid/compare/v1.0.2...v1.0.3
+[1.0.2]: https://github.com/patrickarlt/leaflet-virtual-grid/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/patrickarlt/leaflet-virtual-grid/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/patrickarlt/leaflet-virtual-grid/compare/v0.1.1...v1.0.0
 [0.1.1]: https://github.com/patrickarlt/leaflet-virtual-grid/compare/v0.1.0...v0.1.1
