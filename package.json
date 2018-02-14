@@ -6,7 +6,7 @@
   "jsnext:main": "src/virtual-grid.js",
   "scripts": {
     "lint": "semistandard --verbose | snazzy",
-    "test": "npm run lint && browserify test/virtual-grid.js -t [ babelify --presets es2015 ] | tape-run --browser phantom | faucet",
+    "test": "npm run lint && browserify test/virtual-grid.js -t [ babelify --presets es2015 ] | tape-run | faucet",
     "bundle": "rollup src/virtual-grid.js -m dist/virtual-grid.js.map -e leaflet -f umd -o dist/virtual-grid.js -n VirtualGrid",
     "release": "scripts/release.sh",
     "prepublish": "npm run bundle"
@@ -37,7 +37,6 @@
     "faucet": "0.0.1",
     "gh-release": "^2.0.2",
     "isparta": "^4.0.0",
-    "phantomjs": "^2.1.7",
     "rollup": "^0.21.0",
     "semistandard": "^7.0.2",
     "sinon": "^1.17.2",
@@ -47,6 +46,6 @@
     "tape-run": "^2.1.0"
   },
   "dependencies": {
-    "leaflet": "^1.0.0-rc.1"
+    "leaflet": "^1.0.0"
   }
 }
