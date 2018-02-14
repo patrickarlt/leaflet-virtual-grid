@@ -1,6 +1,13 @@
-import L from 'leaflet';
+import {
+  bounds as Lbounds,
+  latLngBounds as LlatLngBounds,
+  point as Lpoint,
+  Layer,
+  setOptions,
+  Util
+} from 'leaflet';
 
-var VirtualGrid = L.Layer.extend({
+var VirtualGrid = Layer.extend({
 
   options: {
     cellSize: 512,
@@ -8,13 +15,13 @@ var VirtualGrid = L.Layer.extend({
   },
 
   initialize: function (options) {
-    options = L.setOptions(this, options);
+    options = setOptions(this, options);
     this._zooming = false;
   },
 
   onAdd: function (map) {
     this._map = map;
-    this._update = L.Util.throttle(this._update, this.options.updateInterval, this);
+    this._update = Util.throttle(this._update, this.options.updateInterval, this);
     this._reset();
     this._update();
   },
@@ -97,7 +104,7 @@ var VirtualGrid = L.Layer.extend({
     var cellSize = this._getCellSize();
 
     // cell coordinates range for the current view
-    var cellBounds = L.bounds(
+    var cellBounds = Lbounds(
       bounds.min.divideBy(cellSize).floor(),
       bounds.max.divideBy(cellSize).floor());
 
@@ -116,7 +123,7 @@ var VirtualGrid = L.Layer.extend({
     // create a queue of coordinates to load cells from
     for (j = bounds.min.y; j <= bounds.max.y; j++) {
       for (i = bounds.min.x; i <= bounds.max.x; i++) {
-        coords = L.point(i, j);
+        coords = Lpoint(i, j);
         coords.z = zoom;
 
         if (this._isValidCell(coords)) {
@@ -162,7 +169,7 @@ var VirtualGrid = L.Layer.extend({
 
     // don't load cell if it doesn't intersect the bounds in options
     var cellBounds = this._cellCoordsToBounds(coords);
-    return L.latLngBounds(this.options.bounds).intersects(cellBounds);
+    return LlatLngBounds(this.options.bounds).intersects(cellBounds);
   },
 
   // converts cell coordinates to its geographical bounds
@@ -174,7 +181,7 @@ var VirtualGrid = L.Layer.extend({
     var nw = map.wrapLatLng(map.unproject(nwPoint, coords.z));
     var se = map.wrapLatLng(map.unproject(sePoint, coords.z));
 
-    return L.latLngBounds(nw, se);
+    return LlatLngBounds(nw, se);
   },
 
   // converts cell coordinates to key for the cell cache
@@ -188,7 +195,7 @@ var VirtualGrid = L.Layer.extend({
     var x = parseInt(kArr[0], 10);
     var y = parseInt(kArr[1], 10);
 
-    return L.point(x, y);
+    return Lpoint(x, y);
   },
 
   // remove any present cells that are off the specified bounds
@@ -279,8 +286,8 @@ var VirtualGrid = L.Layer.extend({
   },
 
   _wrapCoords: function (coords) {
-    coords.x = this._wrapLng ? L.Util.wrapNum(coords.x, this._wrapLng) : coords.x;
-    coords.y = this._wrapLat ? L.Util.wrapNum(coords.y, this._wrapLat) : coords.y;
+    coords.x = this._wrapLng ? Util.wrapNum(coords.x, this._wrapLng) : coords.x;
+    coords.y = this._wrapLat ? Util.wrapNum(coords.y, this._wrapLat) : coords.y;
   },
 
   // get the global cell coordinates range for the current zoom
@@ -288,7 +295,7 @@ var VirtualGrid = L.Layer.extend({
     var bounds = this._map.getPixelWorldBounds();
     var size = this._getCellSize();
 
-    return bounds ? L.bounds(
+    return bounds ? Lbounds(
         bounds.min.divideBy(size).floor(),
         bounds.max.divideBy(size).ceil().subtract([1, 1])) : null;
   }
