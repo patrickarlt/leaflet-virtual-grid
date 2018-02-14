@@ -1,7 +1,7 @@
 import VirtualGrid from '../src/virtual-grid.js';
 import test from 'tape-catch';
 import sinon from 'sinon';
-import L from 'leaflet';
+import { map, point } from 'leaflet';
 
 function createMap () {
   // create container
@@ -13,7 +13,7 @@ function createMap () {
   // add contianer to body
   document.body.appendChild(container);
 
-  return L.map(container);
+  return map(container);
 }
 
 function createMockGrid () {
@@ -38,7 +38,7 @@ test('should create cells based on the view of the map', function (t) {
   var grid = createMockGrid();
 
   grid.on('cellsupdated', function () {
-    t.ok(grid.createCell.getCall(0).args[1].equals(L.point([0, 0])));
+    t.ok(grid.createCell.getCall(0).args[1].equals(point([0, 0])));
     map.remove();
   });
 
@@ -54,12 +54,12 @@ test('should create cells when the map zooms in', function (t) {
   grid.addTo(map);
 
   grid.on('cellsupdated', function () {
-    t.ok(grid.cellLeave.getCall(0).args[1].equals(L.point([0, 0, 1])));
+    t.ok(grid.cellLeave.getCall(0).args[1].equals(point([0, 0, 1])));
 
-    t.ok(grid.createCell.getCall(1).args[1].equals(L.point([0, 0, 2])));
-    t.ok(grid.createCell.getCall(2).args[1].equals(L.point([1, 0, 2])));
-    t.ok(grid.createCell.getCall(3).args[1].equals(L.point([0, 1, 2])));
-    t.ok(grid.createCell.getCall(4).args[1].equals(L.point([1, 1, 2])));
+    t.ok(grid.createCell.getCall(1).args[1].equals(point([0, 0, 2])));
+    t.ok(grid.createCell.getCall(2).args[1].equals(point([1, 0, 2])));
+    t.ok(grid.createCell.getCall(3).args[1].equals(point([0, 1, 2])));
+    t.ok(grid.createCell.getCall(4).args[1].equals(point([1, 1, 2])));
 
     map.remove();
   });
@@ -76,8 +76,8 @@ test('should create cells when the map is panned', function (t) {
   grid.addTo(map);
 
   grid.on('cellsupdated', function () {
-    t.ok(grid.createCell.getCall(4).args[1].equals(L.point([5, 4, 4])));
-    t.ok(grid.createCell.getCall(5).args[1].equals(L.point([4, 5, 4])));
+    t.ok(grid.createCell.getCall(4).args[1].equals(point([5, 4, 4])));
+    t.ok(grid.createCell.getCall(5).args[1].equals(point([4, 5, 4])));
     map.remove();
   });
 
