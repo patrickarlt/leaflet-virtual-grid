@@ -155,6 +155,8 @@ var VirtualGrid = Layer.extend({
     if (!crs.infinite) {
       // don't load cell if it's out of bounds and not wrapped
       var cellNumBounds = this._cellNumBounds;
+
+      if (!cellNumBounds) return false;
       if (
         (!crs.wrapLng && (coords.x < cellNumBounds.min.x || coords.x > cellNumBounds.max.x)) ||
         (!crs.wrapLat && (coords.y < cellNumBounds.min.y || coords.y > cellNumBounds.max.y))
