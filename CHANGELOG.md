@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### [Unreleased]
 
+## [1.0.7] 2018-07-04
+
+### Fixed
+
+* trap for scenario in which `map.getPixelWorldBounds()` returns null.
+
 ## [1.0.6] 2018-03-23
 
 * cleaned up npm tarball and started exposing `pkg.module` for downstream ES dependents.
@@ -51,7 +57,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 First release.
 
-[Unreleased]: https://github.com/patrickarlt/leaflet-virtual-grid/compare/v1.0.6...HEAD
+[Unreleased]: https://github.com/patrickarlt/leaflet-virtual-grid/compare/v1.0.7...HEAD
+[1.0.7]: https://github.com/patrickarlt/leaflet-virtual-grid/compare/v1.0.6...v1.0.7
 [1.0.6]: https://github.com/patrickarlt/leaflet-virtual-grid/compare/v1.0.5...v1.0.6
 [1.0.5]: https://github.com/patrickarlt/leaflet-virtual-grid/compare/v1.0.4...v1.0.5
 [1.0.4]: https://github.com/patrickarlt/leaflet-virtual-grid/compare/v1.0.3...v1.0.4
