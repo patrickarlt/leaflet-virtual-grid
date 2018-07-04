@@ -13,7 +13,7 @@
     "test": "npm run lint && browserify test/virtual-grid.js -t [ babelify --presets es2015 ] | tape-run | faucet",
     "bundle": "rollup src/virtual-grid.js -m dist/virtual-grid.js.map -e leaflet -f umd -o dist/virtual-grid.js -n VirtualGrid",
     "release": "scripts/release.sh",
-    "prepublish": "npm run bundle"
+    "prepare": "npm run bundle"
   },
   "repository": {
     "type": "git",

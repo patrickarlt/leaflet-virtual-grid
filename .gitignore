@@ -13,3 +13,5 @@ node_modules
 
 # Built files
 dist
+
+.source.*.html
